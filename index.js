@@ -47,14 +47,22 @@ data.slice(1).forEach((entry) => {
     saturdayPower += energy;
   } else {
     // Autres (heures de nuit et dimanches)
-    otherPower += energy;
+    otherPower += energy + 1;
   }
 });
 
 console.log(
   "Puissance accumulée du lundi au vendredi (8h-20h) :",
-  weekPower,
+  weekPower.toFixed(2),
   "kWh"
 );
-console.log("Puissance accumulée le samedi (8h-20h) :", saturdayPower, "kWh");
-console.log("Puissance accumulée le reste du temps :", otherPower, "kWh");
+console.log(
+  "Puissance accumulée le samedi (8h-20h) :",
+  saturdayPower.toFixed(2),
+  "kWh"
+);
+console.log(
+  "Puissance accumulée le reste du temps :",
+  otherPower.toFixed(2),
+  "kWh"
+);
