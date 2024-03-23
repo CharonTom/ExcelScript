@@ -9,29 +9,49 @@ const worksheet = workbook.Sheets[sheetName];
 
 // Convertir les données Excel en format JSON
 const data = XLSX.utils.sheet_to_json(worksheet, {
-  header: ["Date", "Heure", "Puissance"],
+  header: ["Date", "Time", "Power"],
 });
 
-// Initialiser les variables pour stocker la puissance accumulée pour chaque groupe
-let puissanceSemaine = 0;
-let puissanceSamedi = 0;
-let puissanceAutres = 0;
+// Initialiser les variables pour stocker la power accumulée pour chaque groupe
+let weekPower = 0;
+let saturdayPower = 0;
+let otherPower = 0;
 
 // Parcourir chaque objet dans le tableau de données
-data.forEach((entry) => {
+data.slice(1).forEach((entry) => {
+  // J'extrait la première ligne tu tableau car il s'agit du header et ses valeurs ne sont pas des chiffres. Ce qui corrompt les calculs.
   // Extraire la date, l'heure et la puissance
-  const heureDecimal = entry.Heure; // conversion d'une journée en décimal en heure décimal
-  const heure = Math.floor(heureDecimal * 24); // Heure entière
-  const minute = heureDecimal * 24 - heure; // Minute en décimal
 
-  const heureAvecMinutesDecimal = heure + minute; //
-  console.log(heureAvecMinutesDecimal);
+  const decimalHour = entry.Time; // Attention le format est en journée, multiplier par 24 pour avoir en heure.
+  const hour = Math.floor(decimalHour * 24); // Heure entière
+  const minute = decimalHour * 24 - hour; // Minute en décimal
+  const hourWithMinutes = hour + minute;
 
-  const puissance = entry.Puissance / 1000; // P en kw
+  const timeIsInDaySlot = hourWithMinutes >= 8 && hourWithMinutes < 20; // On récupère les données situé dans la plage 8h-20h
 
-  const excelDate = entry.Date;
-  const date = new Date((excelDate - 25569) * 86400 * 1000);
+  const power = entry.Power / 1000; // Puissance en kW
 
-  const heureEstDansPlage = heure >= 8 && heure < 20; // Déterminer si l'heure est comprise entre 8h et 20h
-  const jourSemaine = date.getDay(); // 0 (dimanche) à 6 (samedi)
+  const excelDate = entry.Date; // Attention la date est en format Excel.
+  const date = new Date((excelDate - 25569) * 86400 * 1000); // conversion de la date en format javascript
+
+  const dayOfTheWeek = date.getDay(); // retourne une valeur entre 0 et 6.   0 (dimanche), 1 (lundi), 2 (mardi)...
+
+  if (timeIsInDaySlot && dayOfTheWeek >= 1 && dayOfTheWeek <= 5) {
+    // Lundi au vendredi de 8h à 20h
+    weekPower += power;
+  } else if (timeIsInDaySlot && dayOfTheWeek === 6) {
+    // Samedi de 8h à 20h
+    saturdayPower += power;
+  } else {
+    // Autres (heures de nuit et dimanches)
+    otherPower += power;
+  }
 });
+
+console.log(
+  "Puissance accumulée du lundi au vendredi (8h-20h) :",
+  weekPower,
+  "kW"
+);
+console.log("Puissance accumulée le samedi (8h-20h) :", saturdayPower, "kW");
+console.log("Puissance accumulée le reste du temps :", otherPower, "kW");
