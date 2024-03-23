@@ -36,22 +36,25 @@ data.slice(1).forEach((entry) => {
 
   const dayOfTheWeek = date.getDay(); // retourne une valeur entre 0 et 6.   0 (dimanche), 1 (lundi), 2 (mardi)...
 
+  const duration = 1 / 6; // 10 minutes = 1/6 heure, cette valeur est nécessaire pour la convertion en kWh
+  const energy = power * duration;
+
   if (timeIsInDaySlot && dayOfTheWeek >= 1 && dayOfTheWeek <= 5) {
     // Lundi au vendredi de 8h à 20h
-    weekPower += power;
+    weekPower += energy;
   } else if (timeIsInDaySlot && dayOfTheWeek === 6) {
-    // Samedi de 8h à 20h
-    saturdayPower += power;
+    // Samedi de 8 à 20h
+    saturdayPower += energy;
   } else {
     // Autres (heures de nuit et dimanches)
-    otherPower += power;
+    otherPower += energy;
   }
 });
 
 console.log(
   "Puissance accumulée du lundi au vendredi (8h-20h) :",
   weekPower,
-  "kW"
+  "kWh"
 );
-console.log("Puissance accumulée le samedi (8h-20h) :", saturdayPower, "kW");
-console.log("Puissance accumulée le reste du temps :", otherPower, "kW");
+console.log("Puissance accumulée le samedi (8h-20h) :", saturdayPower, "kWh");
+console.log("Puissance accumulée le reste du temps :", otherPower, "kWh");
