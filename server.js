@@ -9,7 +9,7 @@ let weekPower = 0;
 let saturdayPower = 0;
 let otherPower = 0;
 
-// Charger le fichier Excel et effectuer le calcul des puissances
+// On Charge le fichier Excel et on effectue le calcul demandé
 try {
   // Charger le fichier Excel
   const workbook = XLSX.readFile(excelFilePath);
@@ -23,10 +23,10 @@ try {
     header: ["Date", "Time", "Power"],
   });
 
-  // Parcourir chaque objet dans le tableau de données
+  // On parcour chaque objet dans le tableau de données
   data.slice(1).forEach((entry) => {
-    // J'extrait la première ligne tu tableau car il s'agit du header et ses valeurs ne sont pas des chiffres. Ce qui corrompt les calculs.
-    // Extraire la date, l'heure et la puissance
+    // Je sépare la première ligne tu tableau car il s'agit du header et ses valeurs ne sont pas des chiffres. Ce qui corrompt les calculs.
+    // Extraction des dates, des heures et de des puissances
 
     const decimalHour = entry.Time; // Attention le format est en journée, multiplier par 24 pour avoir en heure.
     const hour = Math.floor(decimalHour * 24); // Heure entière
@@ -37,7 +37,7 @@ try {
 
     const power = entry.Power / 1000; // Puissance en kW
 
-    const excelDate = entry.Date; // Attention la date est en format Excel.
+    const excelDate = entry.Date; // Attention la date est en format Excel (nombre de jours depuis le 1er janvier 1900).
     const date = new Date((excelDate - 25569) * 86400 * 1000); // conversion de la date en format javascript
 
     const dayOfTheWeek = date.getDay(); // retourne une valeur entre 0 et 6.   0 (dimanche), 1 (lundi), 2 (mardi)...
@@ -80,11 +80,13 @@ try {
   );
 }
 
-// Route pour récupérer les résultats
+// Construction d'une API REST afin de pouvoir accéder aux résultats depuis une url
+
 app.use(cors());
+
+// Une route GET est définie pour fournir les résultats du calcul au format JSON.
 app.get("/results", (req, res) => {
   try {
-    // Envoyer les résultats au format JSON
     res.json({
       weekPower: weekPower.toFixed(2),
       saturdayPower: saturdayPower.toFixed(2),
@@ -101,7 +103,7 @@ app.get("/results", (req, res) => {
   }
 });
 
-// Démarrer le serveur sur le port 3000
+// Démarrer le serveur sur le port 5000
 app.listen(5000, () => {
   console.log("Serveur démarré sur le port 5000");
 });
