@@ -6,7 +6,7 @@ Ce backend est une application Node.js dotée d'un script permettant de récupé
 
 - Assurez-vous que Node.js est installé sur votre système. Vous pouvez le télécharger à partir de [nodejs.org](https://nodejs.org/).
 - Clonez ou téléchargez le repo
-- Accédez au répertoire du projet et placez le fichier Excel à la racine du dossier.
+- Accédez au répertoire du projet et placez le fichier Excel à la racine du dossier (au même niveau que le fichier server.js).
 - Ouvrez le terminal de commande à la racine du dossier et entrez "npm install" pour installer les dépendances.
 - Entrez 'node server.js' pour lancer le server
 
