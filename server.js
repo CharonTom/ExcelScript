@@ -103,7 +103,7 @@ app.get("/results", (req, res) => {
   }
 });
 
-// Démarrer le serveur sur le port 5000
+// Démarre le serveur sur le port 5000
 app.listen(5000, () => {
   console.log("Serveur démarré sur le port 5000");
 });
