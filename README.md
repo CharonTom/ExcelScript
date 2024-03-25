@@ -8,7 +8,7 @@ Ce backend est une application Node.js dotée d'un script permettant de récupé
 - Clonez ou téléchargez le repo
 - Accédez au répertoire du projet et placez le fichier Excel à la racine du dossier (au même niveau que le fichier server.js).
 - Ouvrez le terminal de commande à la racine du dossier et entrez "npm install" pour installer les dépendances.
-- Entrez 'node server.js' pour lancer le server
+- Entrez 'node server.js' pour lancer le serveur.
 
 Les consommations d'énergie seront immédiatement affichées dans la console.
 Le serveur démarrera et écoutera les requêtes sur le port 5000 par défaut.
