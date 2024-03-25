@@ -1,6 +1,6 @@
 # Suivi de Consommation d'Énergie
 
-Ce backend est une application Node.js dotée d'un script permettant de récupérer les données de consommation d'énergie à partir d'un fichier Excel. Ces données sont ensuite mises à disposition via une API REST pour un accès facile.
+Ce backend est une application Node.js dotée d'un script permettant de récupérer et de calculer les consommations d'énergie à partir des données d'un fichier Excel. Ces données sont ensuite mises à disposition via une API REST pour un accès facile.
 
 ### Installation
 
