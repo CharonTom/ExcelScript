@@ -9,7 +9,9 @@ Ce backend est une application Node.js dotée d'un script permettant de récupé
 - Accédez au répertoire du projet et placez le fichier Excel à la racine du dossier.
 - Ouvrez le terminal de commande à la racine du dossier et entrez "npm install" pour installer les dépendances.
 - Entrez 'node server.js' pour lancer le server
-- Le serveur démarrera et écoutera les requêtes sur le port 5000 par défaut. Vous pouvez accéder aux données de consommation d'énergie via l'URL suivante : http://localhost:5000/results
+- Les consommations d'énergie seront immédiatement affichées dans la console, le serveur démarrera et écoutera les requêtes sur le port 5000 par défaut. Vous pouvez accéder aux données de consommation d'énergie via l'URL suivante : http://localhost:5000/results.
+
+Vous pouvez trouver le frontend de cette application dans le dépôt suivant : https://github.com/CharonTom/ExcelScript-Front
 
 ### Technologies utilisées:
 
